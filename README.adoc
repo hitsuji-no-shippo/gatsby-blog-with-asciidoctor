@@ -3,9 +3,9 @@
 :!author-email:
 :author: {author-name}
 :!email: {author-email}
-:revnumber: Branch feat/add-pages-support v1.0.0 (Base v0.0.0)
-:revdate: 2020-03-01T03:02:17+0900
-:revremark: Breaking changes.
+:revnumber: Branch feat/add-pages-support v1.1.0 (Base v0.0.0)
+:revdate: 2020-03-01T03:13:47+0900
+:revremark: Add Comments section.
 :doctype: article
 :description: {doctitle} README
 :title:
@@ -127,6 +127,10 @@ const navigatationBar = {
   contact: 'https://twitter.com/hns_equal_st',
 }
 ----
+
+=== Comments
+
+Made Disqus comments collapsible.
 
 === Articles repositroy for demo
 
