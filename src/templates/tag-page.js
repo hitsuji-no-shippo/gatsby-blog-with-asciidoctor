@@ -8,6 +8,7 @@ import Layout from 'components/Layout';
 import SEO from 'components/SEO';
 import PostAbbrev from 'components/PostAbbrev';
 import Bio from 'components/Bio';
+import NavigationBar from 'components/NavigationBar';
 import { useLang } from 'context/LanguageContext';
 import { formatMessage } from 'utils/i18n';
 
@@ -59,6 +60,8 @@ const TagPageTemplate = ({ pageContext, data, location }) => {
       <aside>
         <Bio />
       </aside>
+
+      <NavigationBar />
     </Layout>
   );
 };

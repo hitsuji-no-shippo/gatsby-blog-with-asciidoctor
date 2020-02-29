@@ -3,9 +3,10 @@
 :!author-email:
 :author: {author-name}
 :!email: {author-email}
-:revnumber: Branch feat/add-pages-support v1.0.0 (Base v1.2.0)
-:revdate: 2020-03-01T03:00:11+0900
-:revremark: Add log that componentize link texts.
+:revnumber: Branch feat/add-pages-support v1.1.0 (Base v1.2.0)
+:revdate: 2020-03-01T03:02:07+0900
+:revremark: Add log that add pages support.
+:doctype: article
 :description: gatsby-blog-with-asciidoctor Change Log
 :title:
 :title-separtor: :
@@ -43,6 +44,13 @@ ifndef::env-github[:icons: font]
 :issues-url: {repository-url}/issues
 
 == 0.1.0 (2020-03-01)
+
+=== Features
+
+==== Add
+
+* Pages support. (close link:{issues-url}/5[#5^])
+
 
 === Refactor
 

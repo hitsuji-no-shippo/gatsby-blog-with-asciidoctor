@@ -25,6 +25,14 @@ attributes:
     '!prewrap@': null
 
   options:
+    partials:
+      shouldReferSelf: false
+      attributes:
+        '^pages/':
+          values:
+            page-page: true
+            page-disqus@: false
+
     paths:
       dir-path-from-project: from.project.dir
       full-path-from-project: from.project.full

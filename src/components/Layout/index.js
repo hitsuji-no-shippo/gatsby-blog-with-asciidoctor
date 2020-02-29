@@ -66,6 +66,7 @@ function Layout({ children, pathname, title, breadcrumbs }) {
 Layout.propTypes = {
   children: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.element,
+    PropTypes.bool,
     PropTypes.arrayOf(PropTypes.element),
     PropTypes.bool,
   ])).isRequired,

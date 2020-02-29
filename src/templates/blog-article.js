@@ -8,6 +8,7 @@ import SEO from 'components/SEO';
 import RelativePosts from 'components/RelativePosts';
 import { DisqusEmbed } from 'components/Disqus';
 import Article from 'components/Article';
+import NavigationBar from 'components/NavigationBar';
 
 import { rhythm } from 'utils/typography';
 import {
@@ -45,15 +46,14 @@ function BlogArticleTmeplate({ data, pageContext, location }) {
         homeUrl={languageContexts.homeLink}
       />
 
-      <RelativePosts
-       postNodes={[previousInSameTag, nextInSameTag]}
-       lang={languageContexts.lang} />
+      {!article.pageAttributes.page && (
+        <RelativePosts
+          postNodes={[previousInSameTag, nextInSameTag]}
+          lang={languageContexts.lang}
+        />
+      )}
 
-      <hr
-        style={{
-          marginBottom: rhythm(1),
-        }}
-      />
+      <hr style={{ marginBottom: rhythm(1), }} />
       <Bio />
 
       <ul
@@ -67,7 +67,7 @@ function BlogArticleTmeplate({ data, pageContext, location }) {
         }}
       >
         <li>
-          {previous && (
+          {!article.pageAttributes.page && previous && (
             <Link to={previous.fields.slug} rel="prev">
               ← {previous.document.title}
             </Link>
@@ -75,7 +75,7 @@ function BlogArticleTmeplate({ data, pageContext, location }) {
         </li>
         <li><Link to={`${languageContexts.homeLink}`}>HOME</Link></li>
         <li>
-          {next && (
+          {!article.pageAttributes.page && next && (
             <Link to={next.fields.slug} rel="next">
               {next.document.title} →
             </Link>
@@ -90,6 +90,8 @@ function BlogArticleTmeplate({ data, pageContext, location }) {
           slug={pageContext.slug}
         />
       }
+
+      <NavigationBar />
     </Layout>
   );
 }
@@ -149,6 +151,7 @@ export const pageQuery = graphql`
         disqus
         author_twitter
         author_url
+        page
       }
       paths {
         from {

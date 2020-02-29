@@ -35,7 +35,7 @@ jobs:
           name: Test
           command: yarn test
           environment:
-            ARTICLES_REPOSITORY: hitsuji-no-shippo/sample-posts-with-asciidoc
+            ARTICLES_REPOSITORY: hitsuji-no-shippo/sample-articles-with-asciidoc
 
   build:
     executor: node
@@ -46,7 +46,7 @@ jobs:
           name: Build
           command: yarn build
           environment:
-            ARTICLES_REPOSITORY: hitsuji-no-shippo/sample-posts-with-asciidoc
+            ARTICLES_REPOSITORY: hitsuji-no-shippo/sample-articles-with-asciidoc
       - persist_to_workspace:
           root: ./
           paths:
