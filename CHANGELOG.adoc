@@ -1,0 +1,78 @@
+= Change Log
+:author-name: hitsuji no shippo
+:!author-email:
+:author: {author-name}
+:!email: {author-email}
+:revnumber: v1.0.0
+:revdate: 2020-03-01T02:54:52+0900
+:revremark: First Edition
+:doctype: article
+:description: gatsby-blog-with-asciidoctor Change Log
+:title:
+:title-separtor: :
+:experimental:
+:showtitle:
+:!sectnums:
+:sectids:
+:toc: auto
+:sectlinks:
+:sectanchors:
+:idprefix:
+:idseparator: -
+:xrefstyle: full
+:!example-caption:
+:!figure-caption:
+:!table-caption:
+:!listing-caption:
+ifdef::env-github[]
+:caution-caption: :fire:
+:important-caption: :exclamation:
+:note-caption: :paperclip:
+:tip-caption: :bulb:
+:warning-caption: :warning:
+endif::[]
+ifndef::env-github[:icons: font]
+// Copyright
+:copyright-template: Copyright (c) 2020
+:copyright: {copyright-template} {author-name}
+// Page Attributes
+:page-creation-date: 2020-03-01T02:54:52+0900
+// Variables
+:github-url: https://github.com
+:author-github-profile-url: {github-url}/hitsuji-no-shippo
+:repository-url: {author-github-profile-url}/gatsby-blog-with-asciidoctor
+:issues-url: {repository-url}/issues
+
+== 0.0.0 (2020-03-01)
+
+=== Chore
+
+:gatsby-simple-blog-with-asciidoctor-url: {author-github-profile-url}/gatsby-simple-blog-with-asciidoctor
+* Clone link:{gatsby-simple-blog-with-asciidoctor-url}[
+  hitsuji-no-shippo/gatsby-simple-blog-with-asciidoctor^].
+  (close link:{issues-url}/1[#1^])
++
+--
+:gatsby-simple-blog-with-asciidoctor-commit-id: 0d8e89b8edc95c2190aa1714c87d329b9b857813
+[horizontal]
+repository url:: {gatsby-simple-blog-with-asciidoctor-url}.git
+commit id     :: link:{gatsby-simple-blog-with-asciidoctor-url}/tree/{gatsby-simple-blog-with-asciidoctor-commit-id}[
+                      {gatsby-simple-blog-with-asciidoctor-commit-id}^]
+--
+
+== Copyright
+
+=== LICENSE
+
+This document is licensed under
+link:https://creativecommons.org/publicdomain/zero/1.0/[
+CC0 1.0].
+
+
+{copyright-template} link:https://hitsuji-no-shippo.com[{author-name}]
+
+////
+Asciidoc Copyright
+This asciidoc code is licensed under CC0 1.0
+https://creativecommons.org/publicdomain/zero/1.0/
+////

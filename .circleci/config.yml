@@ -1,0 +1,80 @@
+executors:
+  node:
+    docker:
+      - image: circleci/node:10
+
+aliases:
+  blog_npm_cache:
+    key: &blog_npm_cache_key yarn-cache-blog-0.2.0-{{ checksum "yarn.lock" }}
+    restore_cache: &restore_blog_npm_cache
+      restore_cache:
+        name: Restore Blog NPM Cache
+        keys:
+          - *blog_npm_cache_key
+
+    save_cache: &save_blog_npm_cache
+      save_cache:
+        name: Save Blog NPM cache
+        key: *blog_npm_cache_key
+        paths:
+          - ./node_modules
+
+version: 2.1
+
+jobs:
+  test:
+    executor: node
+    steps:
+      - checkout
+      - *restore_blog_npm_cache
+      - run:
+          name: Install dependencies
+          command: yarn
+      - *save_blog_npm_cache
+      - run:
+          name: Test
+          command: yarn test
+          environment:
+            ARTICLES_REPOSITORY: hitsuji-no-shippo/sample-posts-with-asciidoc
+
+  build:
+    executor: node
+    steps:
+      - checkout
+      - *restore_blog_npm_cache
+      - run:
+          name: Build
+          command: yarn build
+          environment:
+            ARTICLES_REPOSITORY: hitsuji-no-shippo/sample-posts-with-asciidoc
+      - persist_to_workspace:
+          root: ./
+          paths:
+            - public
+
+  deploy:
+    executor: node
+    steps:
+      - attach_workspace:
+          at: ./
+      - run:
+          name: Install netlify-cli
+          command: sudo yarn add -g --silent netlify-cli
+      - run:
+          name: Deploy to Netlify
+          command: ./node_modules/netlify-cli/bin/run deploy --dir=./public -p
+
+workflows:
+  version: 2
+  build_and_deploy:
+    jobs:
+      - test
+      - build:
+          requires:
+            - test
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
