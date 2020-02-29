@@ -14,6 +14,7 @@ const createPagesQuery = PropTypes.shape({
     }).isRequired,
     pageAttributes: PropTypes.shape({
       tags: PropTypes.arrayOf(PropTypes.string),
+      page: PropTypes.bool,
     }).isRequired,
   });
 const translationsLink = PropTypes.arrayOf(PropTypes.shape({
@@ -58,6 +59,7 @@ const articleQuery =  PropTypes.shape({
     disqus: PropTypes.bool,
     author_twitter: PropTypes.string,
     author_url: PropTypes.string,
+    page: PropTypes.bool
   }).isRequired,
   paths: PropTypes.shape({
     from: PropTypes.shape({

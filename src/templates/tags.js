@@ -9,6 +9,7 @@ import { graphql } from 'gatsby';
 import Layout from 'components/Layout';
 import Tag from 'components/Tag';
 import Bio from 'components/Bio';
+import NavigationBar from 'components/NavigationBar';
 import { useLang } from 'context/LanguageContext';
 import { formatMessage } from 'utils/i18n';
 import { location as locationPropTypes } from 'utils/propTypes';
@@ -34,6 +35,7 @@ const TagsPage = ({
       <aside>
         <Bio />
       </aside>
+      <NavigationBar />
       <Helmet title={tTags} />
       <div>
         <h1>{tTags}</h1>

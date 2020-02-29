@@ -2,15 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { author } from 'config'
+import SmartLink from 'components/SmartLink'
 
 const BlogAuthorLink = ({children}) => {
-  return /^http/.test(author.url)
-    ? <a href={author.url}
-        target="_blank"
-        rel="author external noopener noreferrer">
-        {children}
-      </a>
-    : children;
+  return <SmartLink href={author.url} isAuthorLink={true}>{children}</SmartLink>
 }
 
 BlogAuthorLink.propTypes = {

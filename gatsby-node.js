@@ -52,12 +52,18 @@ function PageMaker(createPage) {
       });
     },
 
-    createBlogArticle(articles) {
+    createBlogArticle(allArticles) {
       const translationsInfo = displayTranslations
-        ? translationsByDirectory(articles)
+        ? translationsByDirectory(allArticles)
         : [];
 
-      articles.forEach(article => {
+      const articlesDivideByType = allArticles.reduce((articles, article) => {
+        articles[article.node.pageAttributes.page ? 0 : 1].push(article);
+
+        return articles;
+      }, [[], []]);
+
+      articlesDivideByType.forEach(articles => articles.forEach(article => {
         // article in same language
         const articleLangKey = article.node.fields.langKey;
         const articlesInSameLang = articles.filter(({ node }) => articleLangKey === node.fields.langKey);
@@ -104,7 +110,7 @@ function PageMaker(createPage) {
             translationsLink,
           },
         });
-      });
+      }));
     },
 
     createTagIndex(articlesGroupByLang) {
@@ -177,6 +183,7 @@ exports.createPages = ({ graphql, actions: { createPage } }) => {
                   }
                   pageAttributes {
                     tags
+                    page
                   }
                 }
               }

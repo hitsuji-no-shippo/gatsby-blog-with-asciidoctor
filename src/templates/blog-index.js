@@ -6,6 +6,7 @@ import Bio from 'components/Bio';
 import Layout from 'components/Layout';
 import SEO from 'components/SEO';
 import PostAbbrev from 'components/PostAbbrev';
+import NavigationBar from 'components/NavigationBar';
 import { formatMessage } from 'utils/i18n';
 import { location as locationPropTypes } from 'utils/propTypes';
 
@@ -20,6 +21,7 @@ function BlogIndex({ data, location, pageContext }) {
       <aside>
         <Bio />
       </aside>
+      <NavigationBar />
       <h4>
         {formatMessage('tfIndCountPosts', data.allAsciidoc.totalCount)}
         {' • '}
@@ -108,7 +110,10 @@ export const pageQuery = graphql`
       }
     }
     allAsciidoc(
-      filter: { fields: { langKey: { eq: $langKey } } }
+      filter: {
+        fields: { langKey: { eq: $langKey } }
+        pageAttributes: { page: { ne: true } }
+      }
       sort: { fields: [revision___date], order: DESC }
     ) {
       totalCount

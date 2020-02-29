@@ -3,9 +3,9 @@
 :!author-email:
 :author: {author-name}
 :!email: {author-email}
-:revnumber: v0.0.0
-:revdate: 2020-03-01T02:56:36+0900
-:revremark: Change name and url of repository and demo.
+:revnumber: v1.0.0
+:revdate: 2020-03-01T03:36:09+0900
+:revremark: Breaking changes.
 :doctype: article
 :description: {doctitle} README
 :title:
@@ -64,7 +64,7 @@ image:https://www.netlify.com/img/deploy/button.svg[
   link={netlify-app-url}/start/deploy?repository={repository-url},
   window=_blank]
 
-:sample-articles-repository-name: sample-posts-with-asciidoc
+:sample-articles-repository-name: sample-articles-with-asciidoc
 :sample-articles-repository-link: link:{github-profile-url}/{sample-articles-repository-name}[ \
   hitsuji-no-shippo/{sample-articles-repository-name}^]
 [NOTE]
@@ -83,725 +83,67 @@ environment variable:: Add `$ARTICLES_REPOSITORY`.
 I'm an English leanear. Issues with README fixes are also welcome.
 ====
 
-:base-repository-link-template: link:{github-url}/thundermiracle/gatsby-simple-blog/tree/d8537730b37fb08a2171a29ac9c5be3d6458b0bc
-:base-repository-link: {base-repository-link-template}[ \
-  thundermiracle/gatsby-simple-blog 2019-09-14^]
-== Diffrences from {base-repository-link}
+:gatsby-simple-blog-with-asciidoctor-link: link:{github-profile-url}/gatsby-simple-blog-with-asciidoctor/tree/0d8e89b8edc95c2190aa1714c87d329b9b857813[ \
+  hitsuji-no-shippo/gatsby-simple-blog-with-asciidoctor 2020-03-01^]
+== Diffrences from {gatsby-simple-blog-with-asciidoctor-link}
 
-:gatsby-transformer-asciidoc-url: {github-url}/hitsuji-no-shippo/gatsby-transformer-asciidoc/tree/v0.12.0
-:gatsby-transformer-asciidoc-link: link:{gatsby-transformer-asciidoc-url}[ \
-  @hitsji_no_shippo/gatsby-transformer-asciidoc^]
-=== Change to create article from markdown to asciidoc
+[IMPORTANT]
+====
+If you want to know all the features,
+read the README for {gatsby-simple-blog-with-asciidoctor-link}.
+====
 
-Create articles using asciidoc file. The files are transformed with
-{gatsby-transformer-asciidoc-link}.
+=== Pages support
 
-==== Convert value from frontmatter to attributes
+Pages such as About and policy are available.
+
+By default, the following two points are different from posts.
+
+.Diffrences
+* Not listed in the index page.
+* Links to articles are not displayed in the article pages.
+* By Default, disqus not display.
+
+.Update Default and Sample Articles
+:sample-articles-repository-name: sample-articles-with-asciidoc
+link:{github-profile-url}/{sample-articles-repository-name}[
+hitsuji-no-shippo/{sample-articles-repository-name}^]
+
+=== Navigation Bar
+
+.Dispaly positions
+* Top of the index page, between bio and posts count.
+* Bottom in the article pages.
+
+The setting method is the same as links in bio.
+Input display text and url in `navigatationBar` in `config/index.js`
 
 .Example
-[cols="2*a", options="autowidth"]
-|===
-|
-.Before (Markdown)
-[source, Markdown]
+[source, JavaScript]
 ----
----
-title: Show Disqus
-date: "2019-06-10T22:40:32.169Z"
-tags: ['2019']
-disqus: true
----
+const navigatationBar = {
+  about: 'pages/about',
+  policy: 'pages/policy',
+  contact: 'https://twitter.com/hns_equal_st',
+}
 ----
 
-|
-.After (Asciidoc)
-[source, Asciidoc]
-----
-= Show Disqus
-:revdate: 2019-12-15T16:52:25+0900
-:page-tags: ["2019"]
-:page-disqus: true
-----
-|===
+=== Comments
 
-.Change fields
-[cols=2, options="header, autowidth"]
-|===
-|Before (Markdown)
-|After (Asciidoc)
+Made Disqus comments collapsible.
 
-|fontmatter.date
-|revision.date
-
-|fontmatter.title
-|document.title
-
-|frontmatter.description
-|document.description
-
-|frontmatter.tags
-|pageAttributes.tags
-
-
-|frontmatter.disqus
-|pageAttributes.disqus
-|===
-
-==== expect field delete
-
-{gatsby-transformer-asciidoc-link} doesn't support expect.
-
-==== Plugins
-
-The following 7 remark plugins have been deleted.
-
-ifdef::env-github[]
-[WARNING]
-====
-*I'm sorry for those who read this README on GitHub because it is difficult to
-read.*
-====
-endif::env-github[]
-
-:asciidoctor-user-manual-url: https://asciidoctor.org/docs/user-manual
-===== Deleted Plugins
-
-====== Link to Material
-
-.Local Material
-[cols="d,a", options="header, autowidth"]
-|===
-|Name
-|Alternative
-
-|gatsby-remark-copy-linked-files
-|None
-
-|gatsby-remark-images
-|
-
-.Display Images
-* {asciidoctor-user-manual-url}/#images[
-  Images^]
-* {asciidoctor-user-manual-url}/#setting-the-location-of-images[
-  Setting the Location of Images^]
-* link:{gatsby-transformer-asciidoc-url}#set-imagesdir[
-  Set imagesdir: @hitsuji_no_shippo/gatsby-transformer-asciidoc^]
-ifdef::env-github[]
-+
---
-endif::env-github[]
-ifndef::env-github[]
-.Example
-[example]
-====
-endif::env-github[]
-.Before (Markdown)
-[source, Markdown]
-----
-![Chinese Salty Egg](./salty_egg.jpg)
-----
-
-.After (Asciidoc)
-
-Image file is not automatically copied to public directory.
-THerefore, it is necessary to move to public directory.
-
-.Move image to `public/images`
-[source, bash]
-----
-mkdir public/images
-mv content/blog/hello-world/salty_egg.jpg public/images
-----
-
-.Asciidoc
-[source, Asciidoc]
-----
-image:{imagesdir}/salty_egg.jpg[Chinese Salty Egg, link={imagesdir}/salty_egg.jpg]  // <1>
-----
-<1> `imagesdir` attribute values is `/images` of default value.
-ifdef::env-github[]
---
-+
-endif::env-github[]
-ifndef::env-github[]
-====
-endif::env-github[]
-
-.Size & Link
-* {asciidoctor-user-manual-url}/#sizing-images[
-  Size Images^]
-* {asciidoctor-user-manual-url}/#summary-2[
-  link^]
-+
---
-.Example
-[source, Asciidoc]
-----
-image:{url}[alt text, link={link-url}]
-----
---
-+
-
-|gatsby-remark-autolink-headers
-|
-:auto-generated-ids-url: {asciidoctor-user-manual-url}/#auto-generated-ids
-:block-title-link: link:{asciidoctor-user-manual-url}/#sections-summary[ \
-  Sections Attributes Summary^]
-.{block-title-link}
-* link:{auto-generated-ids-url}[
-  `sectids` attribute^]
-* link:{auto-generated-ids-url}[
-  `idprefix` attribute^]
-* link:{auto-generated-ids-url}[
-  `idseparator` attribute^]
-* link:{asciidoctor-user-manual-url}/#links[
-  `sectanchors` attribute^]
-* link:{asciidoctor-user-manual-url}/#anchors[
-  `sectanchors` attributes^]
-|===
-
-.External Material
-[cols="d,a", options="header, autowidth"]
-|===
-|Name
-|Alternative
-
-|gatsby-remark-external-links
-|link:{asciidoctor-user-manual-url}/#link-macro-attributes[
-  window attribute in link macro.^]
-
-.Macro examples
-[source, Asciidoc]
-----
-link:{url}[display text, window=_blank]  // <1>
-link:{url}[display text^]                // <2>
-----
-<1> specify target window
-<2> Shorthand
-
-.Example
-[example]
-====
-.Before (Markdown)
-[source, Markdown]
-----
-[salted duck eggs](http://en.wikipedia.org/wiki/Salted_duck_egg).
-----
-
-.After (Asciidoc)
-[source, Asciidoc]
-----
-link:http://en.wikipedia.org/wiki/Salted_duck_egg[salted duck eggs, window=_blank]
-----
-====
-
-|gatsby-remark-responsive-iframe
-|link:{asciidoctor-user-manual-url}/#youtube-and-vimeo-videos[
-  Youtube and vive can be embedded.^]
-|===
-
-====== Display Text
-
-[cols="d,a", options="header, autowidth"]
-|===
-|Name
-|Alternative
-
-|gatsby-remark-prismjs
-|None. I want it too. link:{repository-url}/issues/180[#180^]
-
-|gatsby-remark-smartypants
-|None.
-|===
-
-[WARNING]
-====
-I don't know much about the plugins above.
-Therefore, the alternative may be wrong.
-====
-
-===== Change plugin
-
-.Change gatsby-plugin-i18n
-link:{github-url}/angeloocana/gatsby-plugin-i18n/tree/master/packages/gatsby-plugin-i18n[
-gatsby-plugin-i18n^] doesn't support asciidoc. Therefore,it was changed to
-link:{github-url}/hitsuji-no-shippo/gatsby-plugin-i18n/tree/add-support-for-other-lightweight-markup/packages/gatsby-plugin-i18n[
-@hitsuji_no_shippo/gatsby-plugin-i18n^] that supports Asciidoc.
-
-:official-gatsby-pluings-dir-github-url: {github-url}/gatsbyjs/gatsby/tree/master/packages
-==== Ignore `_includes` directory and README, CHANGELOG
-
-The `ignore` option in link:{official-gatsby-pluings-dir-github-url}/gatsby-source-filesystem[
-gatsby-source-filesystem^] is used so that the next files are not generated.
-
-.Ignore ascidoc files
-* In `_includes` directory
-* `README.adoc`
-* `CHANGELOG.adoc`
-
-==== Set Attributes
-
-[%collapsible]
-====
-
-.Empty and Not set
-[cols=2, options="header, autowidth"]
-|======================
-|Value    |Attribute
-|Empty   m|`showtitle`
-|Not set m|`!showtitle`
-|======================
-
-[discrete]
-===== Can not overwirte
-
-:doctype-link: link:{asciidoctor-user-manual-url}/#document-types[ \
-  doctype^]
-:showtitle-link: link:{asciidoctor-user-manual-url}/#document-title-visibility[ \
-  showtitle^]
-[cols=2, options="header, autowidth"]
-|=========================
-|Attribute        |Value
-|{doctype-link}   |article
-|{showtitle-link} |Not set
-|=========================
-
-[discrete]
-===== Can be overwirtten
-
-The attributes of the page have priority.
-
-:toc-link: link:{asciidoctor-user-manual-url}/#manual-placement[ \
-  toc^]
-:toclevels-link: link:{asciidoctor-user-manual-url}/#user-toc-levels[ \
-  toclevels^]
-.TOC
-[cols=2, options="header, autowidth"]
-|=======================
-|Attribute        |Value
-|{toc-link}       |auto
-|{toclevels-link} |2
-|=======================
-
-:sectids-link: link:{asciidoctor-user-manual-url}/#auto-generated-ids[ \
-  sectids^]
-:sectlinks-link: link:{asciidoctor-user-manual-url}/#links[ \
-  sectlinks^]
-:sectanchors-link: link:{asciidoctor-user-manual-url}/#anchors[ \
-  sectanchors^]
-:idprefix-link: link:{asciidoctor-user-manual-url}/#auto-generated-ids[ \
-  idprfix^]
-:idseparator-link: link:{asciidoctor-user-manual-url}/#auto-generated-ids[ \
-  idseparator^]
-.ID
-[cols=2, options="header, autowidth"]
-|============================
-|Attribute             |Value
-|{sectids-link}     .4+|Empty
-|{sectlinks-link}
-|{sectanchors-link}
-|{idprefix-link}
-|{idseparator-link}    |-
-|============================
-
-:sectnums-link: link:{asciidoctor-user-manual-url}/#numbering[ \
-  sectnums^]
-:sectnumlevels-link: link:{asciidoctor-user-manual-url}/#numbering-depth[ \
-  sectnumlevels^]
-.Section
-[cols=2, options="header, autowidth"]
-|=============================
-|Attribute            |Value
-|{sectnums-link}      |Not set
-|{sectnumlevels-link} |3
-|=============================
-
-:caption-description-url: {asciidoctor-user-manual-url}#customizing-labels
-:example-caption-link: link:{caption-description-url}[ \
-  example-caption^]
-:figure-caption-link: link:{caption-description-url}[ \
-  figure-caption^]
-:table-caption-link: link:{caption-description-url}[ \
-  table-caption^]
-:listing-caption-link: link:{caption-description-url}[ \
-  listing-caption^]
-.Caption
-[cols=2, options="header, autowidth"]
-|===============================
-|Attribute                 |Value
-|{example-caption-link} .4+|Empty
-|{figure-caption-link}
-|{table-caption-link}
-|{listing-caption-link}
-|===============================
-
-:icons-link: link:{asciidoctor-user-manual-url}/#admonition-icons[ \
-  icons^]
-:xrefstyle-link: link:{asciidoctor-user-manual-url}#customizing-the-cross-reference-text[ \
-  xrefstyle^]
-:experimental-link: link:{asciidoctor-user-manual-url}#user-interface-macros[ \
-  experimental^]
-.The Others
-|===========================
-|Attribute           |Value
-|{icons-link}        |font
-|{xrefstyle-link}    |full
-|{experimental-link} |Emptye
-|===========================
-
-// collapsible block close
-====
-
-=== Asciidoctor Support to CSS
-
-Use this link:{github-url}/hitsuji-no-shippo/article-css-for-asciidoc/tree/30575534810dc487b6df82ba755943863340a271[
-git repository^].
-
-:repository-url-string-template: ${GIT_HOST}/${ARTICLES_REPOSITORY}
-=== Articles Management
-
-There are two ways to articles management.
-
-==== Another Repository (Default)
-
-If there is not `content/blog`, clone articles with link:./setup/clone-articles.sh[
-setup/clone-articles.sh^]. *If there is `content/blog` directory, do not clone.*
-
-The clone repository is `{repository-url-string-template}` with
-*environment variables*. When using another repository as an articles,
-be sure to set `$ARTICLES_REPOSITORY`. `$GIT_HOST` is not required.
-If unset, it will be `{github-url}`.
+=== Articles repositroy for demo
 
 .For link:{demo-url}[demo^]
 [horizontal]
-GIT_HOST           :: unset (i.e. `{github-url}`)
 ARTICLES_REPOSITORY:: {sample-articles-repository-link}
 
-==== Same Repository
+=== Repository link in Footer
 
-Place the articles directory as `content/blog`. You do not need to set
-environment variables.
-
-=== Link that Edit / View history in GitHub
-
-You can add GitHub link into article footer. To add a link,
-you need to set `repository` and `articles` in `config/index.js`.
-The link is not displayed in the following cases.
-
-.Cases
-* `{repository-url-string-template}` is doesn't contained `github.com`.
-* `articles.filePath` doesn't exist.
-* The field of `articles.filePath` doesn't exist.
-* Match with `articles.ignore` option.
-
-.How to make url
-[cols=3, options="header, autowidth]
-|===
-|`$ARTICLES_REPOSITORY`
-|URL to articles directory
-|Common
-
-|set
-|`{repository-url-string-template}`
-
-.2+|`/${articles.dir}/{edit \| commits}/master/${node[filePath]}`
-
-|unset
-|`${repository.url}/content/blog`
-|===
-
-[CAUTION]
-====
-Submodules are not supported.
-====
-
-==== `filePath`
-
-After the `master/`, the field value of `filePath` in node follows.
-The Key is `node.internal.type` value, value is field of file path.
-For `Asciidoc: 'paths.from.source.full'`, Asciidoc node uses the value of
-`node.paths.from.source.full`.
-If field of `filePath` doesn't exist, not add link and no error occurs.
-
-[NOTE]
-====
-`node.paths.from.source` is maked link:{gatsby-transformer-asciidoc-url}#how-to-query[
-gatsby-transformer-asciidoc^].
-====
-
-==== `ignore`
-
-No link is added to the article with the path(field value of `filePath`) that
-glob matches at least one `articles.ignore`.
-
-.example
-[source, JavaScript]
-----
-articles: {
-  dir: 'hitsuji-no-shippo/sample-articles-for-asciidoctor',
-  ignore: ['asciidoc-examples/**/*.adoc'],
-}
-----
-
-
-=== Links in Bio
-
-.Change points
-* From icon to text.
-* Add rss(`/rss.xml`).
-* Config From `siteMetadata` to `linksInBio` in `config/index.js`.
-+
---
-.Example
-[source, JavaScript, subs="attributes"]
-----
-{
-  twitter: 'https://twitter.com/hns_equal_st',     // <1>
-  GitHub: '{github-url}/hitsuji-no-shippo',  // <1>
-}
-----
-<1> key (`twitter`) is dispaly text, value (`https...`) is url.
---
-
-=== Author Config
-
-Change value of the author name from `site.author` to `author.name` in
-`config/index.js`. The `authro` values are used as the default attributes in
-Asciidoc.
-
-[cols=4, options="header, autowidht"]
-|============================================================
-|Key           |siteMetadata   |Asciidoc Attribute  |Required
-|name          |author         |author              |Yes
-|email         |Not use        |email               |No
-|url           |Not use        |page-author-url     |No
-|twitter       |social.twitter |page-author-twitter |No
-|shouldDisplay |Not use        |Not use             |No
-|============================================================
-
-[NOTE]
-====
-:attributes-priority-description-link: link:{asciidoctor-user-manual-url}/#altering-the-attribute-assignment-precedence[ \
-  Page attributes take precedence^]
-.{attributes-priority-description-link}
-Page attributes take precedence because `@` is added to the end of the
-default asciidco attributes.
-====
-
-=== Replace Local Link behavior in Articles
-
-:gatsby-link-api-docs-link-template: link:https://www.gatsbyjs.org/docs/gatsby-link/
-Use link:{official-gatsby-pluings-dir-github-url}/gatsby-plugin-catch-links[
-gatsby-plugin-catch-links^] to replace local link behavior in articles with {gatsby-link-api-docs-link-template}/#how-to-use-gatsby-link[
-gatsby-link^] and {gatsby-link-api-docs-link-template}/#how-to-use-the-navigate-helper-function[
-navigation^] to improve performance.
-
-=== Profile Picture Link
-
-Add link to the profile picture in Bio.
-Used value of url is `author.url` in `config/index.js`.
-If you do not want to add a link, set `author.url` to `null`.
-
-=== Article Author Display
-
-Dispaly article author under article title. By default, if the article author
-name is the same as `author.name` in `config/index.js`,
-it will not be displayed. If you want to display it,
-set `author.shouldDisplay` in `config/index.js` to `true`.
-
-==== Link
-
-.The article author is the blog author.
-If the `author.url` exist, will be a link.
-
-.The article author is not the blog author.
-If the `page-author-url` or `page-author-twitter` of asciidoc attributes exists,
-will be a link.
-
-.How to make href (Y: exist N: not exist)
-|==========================================================
-|twitter|url    |href
-|N      |N      |Not link
-|Y      |N     m|\https://twitter.com/{page-author-twitter}
-|N      |Y   .2+|page-author-url
-|Y      |Y
-|==========================================================
-
-
-=== Date Display
-
-Date display is determined by `dateDisplay` in `config/index.js`.
-
-.`dateDisplay`
-[source, Vim]
-----
-const dateDisplay = {
-  format: "LL",  // <1>
-  diff: {
-    patternWithNotConvert: /month|year/,  // <2>
-    newPost: {
-      boundary: 7,  // <3>
-      emoji: '🎉',  // <4>
-    },
-  },
-}
-----
-:moment-token-url: link:https://momentjs.com/docs/#/parsing/string-format/[ \
-  token^]
-<1> String using {moment-token-url}.
-    In the case of `LL`, the date dispaly is as follows:
-+
---
-[horizontal]
-English:: *January 22, 2020*
-日本語 :: *2020年1月21日*
---
-<2> Pattern not converted to date difference (e.g *a day ago*, *1日前* ).
-    In the case of `/month|year/`, date dispaly is converted as follows:
-+
---
-.Now is January 22, 2020
-[horizontal]
-January  20, 2020:: 2 days ago
-December  2, 2019:: December  2, 2019
-January  20, 2019:: January  20, 2019
---
-<3> Boundary days to determine if it is a new post.
-    In the case of `7`, it is determined as follows.
-+
---
-[cols=2, options="header, autowidth"]
-|===================
-|Difficult      |New
-|an hour ago .4+|Yes
-|a day ago
-|2 days ago
-|7 days ago
-|8 days ago     |No
-|==================
-
---
-+
-[CAUTION]
-====
-Possible values are 1 to 25.
-====
-<4> Emoji to be added to the beginning of new post date.
-
-=== Disqus
-
-.Change default from non dispaly to dispaly
-By default, dispaly disqus in article pages. If the value of asciidoc attribute
-`page-disqus` is `false`, non dispaly.
-
-.Add comment count link
-Displayed next to read to time. Click to go to embedded disqus of the article.
-
-=== Tags Link
-
-Add link to tag list next to count posts in index.
-
-=== Scroll Up
-
-Add Scroll Up at bottom right.
-
-=== HOME Link
-
-Add home link between relative posts in article page.
-
-=== Tag List position
-
-Change position in index to under the line starting from update date.
-
-=== Tag Page
-
-Add description of article in tag page.
-
-=== Footer
-
-.Text
-Update `Made of` to `Built with`.
-
-.Repository Link
-Used `repository` in `config/index.js`
-Doesn't displays link, if `url` is `undefined` or `displaysLink` is `false`.
-
-.Default values
+.Change items
 [horizontal]
 url         :: {repository-url}
 name        :: {doctitle}
-displaysLink:: true
-
-=== Change element of blog entry
-
-Change to link:https://developer.mozilla.org/en-US/docs/Web/HTML/Element/article[
-`article`^].
-
-=== SEO
-
-* Add `twitter:site`. The value (twitter id) used is
-  `siteMetadata.social.twitter`
-* Add `og:url`. The value used is `siteMetadata.siteUrl` + `node.fields.slug`
-* The value used in `twitter: creator` has been changed to
-  `page-author-twitter` asciidoc attribute.
-+
---
-[NOTE]
-====
-.Cases where `twitter: creator` is not created.
-* The `page-author-twitter` asciidoc attribute isn't exist.
-* The `author` attribute is different from the `siteMetadata.author` and
-  the `page-author-twitter` attribute value is the same as
-  `siteMetadata.social.twitter`.
-====
---
-
-=== Add GitHub Actions
-
-:netlify-deploy-workflow-link-template: link:/.github/workflows/netlify-deploy.yml
-:netlify-link: link:https://www.netlify.com[ \
-  Netlify^]
-:netlify-authentication-url: https://docs.netlify.com/cli/get-started#authentication
-:github-actions-docs-link-template: link:https://help.github.com/en/actions
-
-Add a {netlify-deploy-workflow-link-template}[
-workflow^] to {netlify-link} to deploy.
-The workflow trigger is {github-actions-docs-link-template}/reference/events-that-trigger-workflows#push-event-push[
-commit pushed^].
-
-==== Secrets
-
-.Must set secrets
-[horizontal]
-NETLIFY_AUTH_TOKEN::
-  link:{netlify-authentication-url}[
-  How to obtain a token^].
-NETLIFY_SITE_ID::
-  link:{netlify-authentication-url}[
-  site id in Site information, displayed by click
-  menu:Deploy site[Site settings or Settings > Site details]^].
-
-{github-actions-docs-link-template}/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets#creating-encrypted-secrets[
-How to creating encrypted secrets^].
-
-==== Deploy Message
-
-Netlify deploy message is commit message that triggerd.
-If the commit message cant't be fetched,
-the message is `commit sha is ${commit SHA}`.
-
-=== Delete `./deploy` Directory
-
-Delete {base-repository-link-template}/deploy[
-./deploy^].
-
-
-== Description
-
-A gatsbyjs starter forked from gatsby-starter-blog and applied overreacted
-lookings, with tags and breadcrumbs, eslint, relative posts, disqus, i18n,
-eslint supported.
 
 == How to use
 
@@ -812,49 +154,6 @@ cd my-blog-folder
 yarn
 yarn dev
 ----
-
-== How to deploy by Circle-CI in Medium.com
-
-link:https://medium.com/@thundermiracle/deploy-static-sites-to-netlify-by-circle-ci-ab51a0b59b73?source=friends_link&sk=095db82e2f8e8ef91d03a171f217e340[
-Medium.com -- Deploy Static Sites to Netlify by Circle-CI^]
-
-== Configuration
-
-All configurable values are here: `./config/index.js`
-
-== i18n
-
-. Add [lang].js to config/locales folder
-. Modify supportedLanguages in config/index.js
-. Set site.lang in config/index.js as default language
-. add [filename].[lang].md to content/blog and enjoy!
-
-== Features
-
-* i18n
-+
---
-Display multiple language. (Only be shown when supportedLanguages > 1)
-
-Display language link in every post.
-(You can disable it in config/index.js by displayTranslations: false)
---
-+
-* overreacted design +
-  link:https://overreacted.io/[
-  overreacted.io^] lookings
-* Tags +
-  Display articles in same tag.
-* Breadcrumbs +
-Display breadcrumbs in header part.
-* Relative posts +
-Display previous and next posts in same tag in footer part.
-* Disqus +
-Use disqus.com to enable comment.
-* eslint +
-  Enable eslint for better coding experience.
-* module resolver +
-  Enable babel-module-resolver to prevent relative path hell
 
 == LICENSE
 

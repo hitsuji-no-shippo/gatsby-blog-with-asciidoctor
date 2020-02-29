@@ -7,12 +7,15 @@ import Disqus from './Disqus';
 
 const Embed = ({identifier, title, slug }) => {
   return (
-    <Disqus
-      identifier={identifier}
-      title={title}
-      slug={slug}
-      Component={DiscussionEmbed}
-    />
+    <details open>
+      <summary>Comments</summary>
+      <Disqus
+        identifier={identifier}
+        title={title}
+        slug={slug}
+        Component={DiscussionEmbed}
+      />
+    </details>
   );
 }
 

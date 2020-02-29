@@ -3,9 +3,12 @@
 :!author-email:
 :author: {author-name}
 :!email: {author-email}
-:revnumber: v1.2.0
-:revdate: 2020-03-01T02:58:20+0900
-:revremark: Add log that rename post to article.
+:revnumber: v1.3.0
+:revdate: 2020-03-01T03:34:36+0900
+:revremark: Add the following logs: + \
+            * Componentize link texts. + \
+            * Add pages support. + \
+            * Make disqus comment collapsible.
 :doctype: article
 :description: gatsby-blog-with-asciidoctor Change Log
 :title:
@@ -45,9 +48,18 @@ ifndef::env-github[:icons: font]
 
 == 0.1.0 (2020-03-01)
 
+=== Features
+
+==== Add
+
+* Pages support. (close link:{issues-url}/5[#5^])
+* Make disqus comment collapsible. (close link:{issues-url}/6[#6^])
+
+
 === Refactor
 
 * Rename post to article. (close link:{issues-url}/3[#3^])
+* Componentize link texts. (close link:{issues-url}/4[#4^])
 
 
 == 0.0.0 (2020-03-01)

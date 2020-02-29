@@ -1,9 +1,7 @@
-const GITHUB_PROFILE_URL = 'https://github.com/hitsuji-no-shippo';
-
 const author = {
   name: 'hitsuji no shippo',
   email: 'xxx@yyy.zzz',
-  url: GITHUB_PROFILE_URL,
+  url: 'pages/about',
   twitter: 'hns_equal_st',
 }
 
@@ -40,7 +38,7 @@ const articles = {
 
 const linksInBio = {
   twitter: `https://twitter.com/${author.twitter}`,
-  GitHub: GITHUB_PROFILE_URL,
+  GitHub: 'https://github.com/hitsuji-no-shippo',
 }
 
 const dateDisplay = {
@@ -52,7 +50,13 @@ const dateDisplay = {
       emoji: '🎉',
     },
   },
-}
+};
+
+const navigatationBar = {
+  about: 'pages/about',
+  policy: 'pages/policy',
+  contact: 'https://twitter.com/hns_equal_st',
+};
 
 module.exports = {
   author,
@@ -62,4 +66,5 @@ module.exports = {
   articles,
   linksInBio,
   dateDisplay,
+  navigatationBar,
 };

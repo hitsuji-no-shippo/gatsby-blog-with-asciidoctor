@@ -3,4 +3,4 @@
   publish = "public/"
 
 [build.environment]
-  ARTICLES_REPOSITORY = "hitsuji-no-shippo/sample-posts-with-asciidoc"
+  ARTICLES_REPOSITORY = "hitsuji-no-shippo/sample-articles-with-asciidoc"
