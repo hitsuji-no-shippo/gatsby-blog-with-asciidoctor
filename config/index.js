@@ -12,11 +12,11 @@ const site = {
   title: 'Gatsby Starter Blog',
   description: 'A starter blog with asciidoctor.',
   // demo site url
-  siteUrl: 'https://gatsby-simple-blog-with-asciidoctor-demo.netlify.com',
+  siteUrl: 'https://gatsby-blog-with-asciidoctor-demo.netlify.com',
   social : {
     twitter: author.twitter,
   },
-  disqusShortName: 'gatsby-simple-blog',
+  disqusShortName: 'gatsby-blog',
   googleTrackingId: '',
   lang: 'en',
   displayTranslations: true,
@@ -28,8 +28,8 @@ const supportedLanguages = {
 };
 
 const repository = {
-  url: 'https://github.com/hitsuji-no-shippo/gatsby-simple-blog-with-asciidoctor',
-  name: 'gatsby-simple-blog-with-asciidoctor',
+  url: 'https://github.com/hitsuji-no-shippo/gatsby-blog-with-asciidoctor',
+  name: 'gatsby-blog-with-asciidoctor',
   displaysLink: true,
 }
 

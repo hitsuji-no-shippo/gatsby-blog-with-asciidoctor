@@ -3,9 +3,13 @@
 :!author-email:
 :author: {author-name}
 :!email: {author-email}
-:revnumber: v1.0.0
-:revdate: 2020-03-01T02:54:52+0900
-:revremark: First Edition
+:revnumber: v1.1.0
+:revdate: 2020-03-01T02:56:09+0900
+:revremark: add log that change the following items: + \
+            * name + \
+            * urls of repository and demo + \
+            * description + \
+            * version
 :doctype: article
 :description: gatsby-blog-with-asciidoctor Change Log
 :title:
@@ -59,6 +63,11 @@ repository url:: {gatsby-simple-blog-with-asciidoctor-url}.git
 commit id     :: link:{gatsby-simple-blog-with-asciidoctor-url}/tree/{gatsby-simple-blog-with-asciidoctor-commit-id}[
                       {gatsby-simple-blog-with-asciidoctor-commit-id}^]
 --
+* Change the following items: (close link:{issues-url}/2[#2^])
+** name
+** urls of repository and demo
+** description
+** version
 
 == Copyright
 
