@@ -1,7 +1,7 @@
 {
   "name": "@hitsuji_no_shippo/gatsby-blog-with-asciidoctor",
   "description": "gatsby blog with asciidoctor",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "author": "hitsuji no shippo",
   "bugs": {
     "url": "https://github.com/hitsuji-no-shippo/gatsby-blog-with-asciidoctor/issues"
