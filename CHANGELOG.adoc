@@ -3,13 +3,9 @@
 :!author-email:
 :author: {author-name}
 :!email: {author-email}
-:revnumber: v1.1.0
-:revdate: 2020-03-01T02:56:09+0900
-:revremark: add log that change the following items: + \
-            * name + \
-            * urls of repository and demo + \
-            * description + \
-            * version
+:revnumber: v1.2.0
+:revdate: 2020-03-01T02:58:20+0900
+:revremark: Add log that rename post to article.
 :doctype: article
 :description: gatsby-blog-with-asciidoctor Change Log
 :title:
@@ -46,6 +42,13 @@ ifndef::env-github[:icons: font]
 :author-github-profile-url: {github-url}/hitsuji-no-shippo
 :repository-url: {author-github-profile-url}/gatsby-blog-with-asciidoctor
 :issues-url: {repository-url}/issues
+
+== 0.1.0 (2020-03-01)
+
+=== Refactor
+
+* Rename post to article. (close link:{issues-url}/3[#3^])
+
 
 == 0.0.0 (2020-03-01)
 

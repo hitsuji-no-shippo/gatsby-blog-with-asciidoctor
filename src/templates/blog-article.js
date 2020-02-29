@@ -18,8 +18,8 @@ import {
 } from 'utils/propTypes';
 import { useLang } from 'context/LanguageContext';
 
-function BlogPostTemplate({ data, pageContext, location }) {
-  const post = data.asciidoc;
+function BlogArticleTmeplate({ data, pageContext, location }) {
+  const article = data.asciidoc;
   const { previous, next, previousInSameTag, nextInSameTag, translationsLink } = pageContext;
   const languageContexts = useLang();
 
@@ -27,19 +27,19 @@ function BlogPostTemplate({ data, pageContext, location }) {
     <Layout
       pathname={location.pathname}
       title={data.site.siteMetadata.title}
-      breadcrumbs={[{ text: post.document.title }]}
+      breadcrumbs={[{ text: article.document.title }]}
     >
       <SEO
-        title={post.document.title}
-        description={post.document.description}
+        title={article.document.title}
+        description={article.document.description}
         slug={pageContext.slug}
         articleAuthor={{
-          name: post.author.fullName,
-          twitter: post.pageAttributes.author_twitter,
+          name: article.author.fullName,
+          twitter: article.pageAttributes.author_twitter,
         }}
       />
       <Article
-        article={post}
+        article={article}
         slug={pageContext.slug}
         translationsLink={translationsLink}
         homeUrl={languageContexts.homeLink}
@@ -83,10 +83,10 @@ function BlogPostTemplate({ data, pageContext, location }) {
         </li>
       </ul>
 
-      {post.pageAttributes.disqus !== false &&
+      {article.pageAttributes.disqus !== false &&
         <DisqusEmbed
-          identifier={post.id}
-          title={post.document.title}
+          identifier={article.id}
+          title={article.document.title}
           slug={pageContext.slug}
         />
       }
@@ -94,7 +94,7 @@ function BlogPostTemplate({ data, pageContext, location }) {
   );
 }
 
-BlogPostTemplate.propTypes = {
+BlogArticleTmeplate.propTypes = {
   data: PropTypes.shape({
     site: PropTypes.shape({
       siteMetadata: PropTypes.shape({
@@ -116,10 +116,10 @@ BlogPostTemplate.propTypes = {
   location: locationPropTypes.isRequired,
 };
 
-export default BlogPostTemplate;
+export default BlogArticleTmeplate;
 
 export const pageQuery = graphql`
-  query BlogPostBySlug($slug: String!) {
+  query BlogArticleBySlug($slug: String!) {
     site {
       siteMetadata {
         title

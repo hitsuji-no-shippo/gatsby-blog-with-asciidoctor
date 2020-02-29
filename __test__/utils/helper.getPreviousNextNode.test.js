@@ -1,24 +1,24 @@
 import { getPreviousNextNode } from '../../src/utils/helpers';
 
-const Posts = [
+const Articles = [
   {
-    node: 'post0',
+    node: 'article0',
   },
   {
-    node: 'post1',
+    node: 'article1',
   },
   {
-    node: 'post2',
+    node: 'article2',
   },
   {
-    node: 'post3',
+    node: 'article3',
   },
   {
-    node: 'post4',
+    node: 'article4',
   },
 ];
 
-test('posts is empty', () => {
+test('articles is empty', () => {
   const result1 = getPreviousNextNode([], 1);
   const result2 = getPreviousNextNode([], -1);
   const expected = { previous: undefined, next: undefined };
@@ -27,25 +27,25 @@ test('posts is empty', () => {
 });
 
 test('fromInd is -1', () => {
-  const result = getPreviousNextNode(Posts, -1);
+  const result = getPreviousNextNode(Articles, -1);
   const expected = { previous: undefined, next: undefined };
   expect(result).toEqual(expected);
 });
 
 test('fromInd is 0', () => {
-  const result = getPreviousNextNode(Posts, 0);
-  const expected = { previous: null, next: 'post1' };
+  const result = getPreviousNextNode(Articles, 0);
+  const expected = { previous: null, next: 'article1' };
   expect(result).toEqual(expected);
 });
 
 test('fromInd is the lastone', () => {
-  const result = getPreviousNextNode(Posts, 4);
-  const expected = { previous: 'post3', next: null };
+  const result = getPreviousNextNode(Articles, 4);
+  const expected = { previous: 'article3', next: null };
   expect(result).toEqual(expected);
 });
 
 test('fromInd is the lastone', () => {
-  const result = getPreviousNextNode(Posts, 2);
-  const expected = { previous: 'post1', next: 'post3' };
+  const result = getPreviousNextNode(Articles, 2);
+  const expected = { previous: 'article1', next: 'article3' };
   expect(result).toEqual(expected);
 });

@@ -13,15 +13,15 @@ const byLangKey = R.groupBy(R.path(['node', 'fields', 'langKey']));
 // group by directoryName
 const byDirectoryName = R.groupBy(R.path(['node', 'fields', 'directoryName']));
 
-const translationsByDirectory = posts => {
-  const gpDirPosts = byDirectoryName(posts);
+const translationsByDirectory = articles => {
+  const gpDirArticles = byDirectoryName(articles);
 
-  const dirNames = R.keys(gpDirPosts);
+  const dirNames = R.keys(gpDirArticles);
 
   const otherLangs = R.compose(
     R.map(R.map(R.path(['node', 'fields', 'langKey']))),
     R.values,
-  )(gpDirPosts);
+  )(gpDirArticles);
 
   return R.zipObj(dirNames, otherLangs);
 };
@@ -31,7 +31,7 @@ const translationsByDirectory = posts => {
  */
 function PageMaker(createPage) {
   const blogIndex = path.resolve('./src/templates/blog-index.js');
-  const blogPost = path.resolve('./src/templates/blog-post.js');
+  const blogArticle = path.resolve('./src/templates/blog-article.js');
   const tagsTotal = path.resolve('./src/templates/tags.js');
   const tagPage = path.resolve('./src/templates/tag-page.js');
 
@@ -52,36 +52,38 @@ function PageMaker(createPage) {
       });
     },
 
-    createBlogPost(posts) {
-      const translationsInfo = displayTranslations ? translationsByDirectory(posts) : [];
+    createBlogArticle(articles) {
+      const translationsInfo = displayTranslations
+        ? translationsByDirectory(articles)
+        : [];
 
-      posts.forEach(post => {
-        // posts in same language
-        const postLangKey = post.node.fields.langKey;
-        const postsInSameLang = posts.filter(({ node }) => postLangKey === node.fields.langKey);
-        const indexInSameLang = postsInSameLang.findIndex(
-          p => p.node.fields.slug === post.node.fields.slug,
+      articles.forEach(article => {
+        // article in same language
+        const articleLangKey = article.node.fields.langKey;
+        const articlesInSameLang = articles.filter(({ node }) => articleLangKey === node.fields.langKey);
+        const indexInSameLang = articlesInSameLang.findIndex(
+          p => p.node.fields.slug === article.node.fields.slug,
         );
-        const { previous, next } = getPreviousNextNode(postsInSameLang, indexInSameLang);
+        const { previous, next } = getPreviousNextNode(articlesInSameLang, indexInSameLang);
 
-        // posts in same tags
-        const postTags = post.node.pageAttributes.tags;
-        const postsInSameTag = posts.filter(({ node }) =>
-          haveSameItem(postTags, node.pageAttributes.tags),
+        // article in same tags
+        const articleTags = article.node.pageAttributes.tags;
+        const articlesInSameTag = articles.filter(({ node }) =>
+          haveSameItem(articleTags, node.pageAttributes.tags),
         );
-        const indexInSameTag = postsInSameTag.findIndex(
-          p => p.node.fields.slug === post.node.fields.slug,
+        const indexInSameTag = articlesInSameTag.findIndex(
+          p => p.node.fields.slug === article.node.fields.slug,
         );
         const { previous: previousInSameTag, next: nextInSameTag } = getPreviousNextNode(
-          postsInSameTag,
+          articlesInSameTag,
           indexInSameTag,
         );
 
         // translations
         let translationsLink = [];
-        if (displayTranslations && R.path(['node', 'fields', 'directoryName'], post)) {
-          const dirName = post.node.fields.directoryName;
-          const translations = R.without([postLangKey], translationsInfo[dirName]);
+        if (displayTranslations && R.path(['node', 'fields', 'directoryName'], article)) {
+          const dirName = article.node.fields.directoryName;
+          const translations = R.without([articleLangKey], translationsInfo[dirName]);
 
           translationsLink = translations.map(trans => ({
             name: supportedLanguages[trans],
@@ -91,10 +93,10 @@ function PageMaker(createPage) {
         }
 
         createPage({
-          path: post.node.fields.slug,
-          component: blogPost,
+          path: article.node.fields.slug,
+          component: blogArticle,
           context: {
-            slug: post.node.fields.slug,
+            slug: article.node.fields.slug,
             previous,
             next,
             previousInSameTag,
@@ -105,8 +107,8 @@ function PageMaker(createPage) {
       });
     },
 
-    createTagIndex(postsGroupByLang) {
-      Object.keys(postsGroupByLang).forEach(langKey => {
+    createTagIndex(articlesGroupByLang) {
+      Object.keys(articlesGroupByLang).forEach(langKey => {
         // Make tags-total
         createPage({
           path: `${getBaseUrl(defaultLang, langKey)}tags/`,
@@ -118,13 +120,13 @@ function PageMaker(createPage) {
       });
     },
 
-    createTagPage(postsGroupByLang) {
-      Object.keys(postsGroupByLang).forEach(langKey => {
+    createTagPage(articlesGroupByLang) {
+      Object.keys(articlesGroupByLang).forEach(langKey => {
         // Tag pages:
         let tags = [];
-        postsGroupByLang[langKey].forEach(post => {
-          if (R.path(['node', 'pageAttributes', 'tags'], post)) {
-            tags = tags.concat(post.node.pageAttributes.tags);
+        articlesGroupByLang[langKey].forEach(article => {
+          if (R.path(['node', 'pageAttributes', 'tags'], article)) {
+            tags = tags.concat(article.node.pageAttributes.tags);
           }
         });
         // Eliminate duplicate tags
@@ -187,12 +189,12 @@ exports.createPages = ({ graphql, actions: { createPage } }) => {
           reject(result.errors);
         }
 
-        const posts = result.data.allAsciidoc.edges;
-        const gpLangPosts = byLangKey(posts);
+        const article = result.data.allAsciidoc.edges;
+        const gpLangArticles = byLangKey(article);
 
-        pageMaker.createBlogPost(posts);
-        pageMaker.createTagIndex(gpLangPosts);
-        pageMaker.createTagPage(gpLangPosts);
+        pageMaker.createBlogArticle(article);
+        pageMaker.createTagIndex(gpLangArticles);
+        pageMaker.createTagPage(gpLangArticles);
 
         return null;
       }),

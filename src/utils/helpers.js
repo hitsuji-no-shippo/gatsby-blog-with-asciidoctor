@@ -16,12 +16,12 @@ function haveSameItem(arr1 = [], arr2 = []) {
   return uniques.length < arr1.length + arr2.length;
 }
 
-function getPreviousNextNode(posts, fromInd) {
+function getPreviousNextNode(articles, fromInd) {
   let previous;
   let next;
-  if (posts.length > 0 && fromInd > -1) {
-    previous = fromInd <= 0 ? null : posts[fromInd - 1].node;
-    next = fromInd === posts.length - 1 ? null : posts[fromInd + 1].node;
+  if (articles.length > 0 && fromInd > -1) {
+    previous = fromInd <= 0 ? null : articles[fromInd - 1].node;
+    next = fromInd === articles.length - 1 ? null : articles[fromInd + 1].node;
   }
 
   return {
